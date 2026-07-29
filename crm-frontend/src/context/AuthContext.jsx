@@ -36,11 +36,18 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (credentials) => {
-    const response = await authService.login(credentials);
-    const { token, user } = response.data;
-    localStorage.setItem('token', token);
-    setUser(user);
-    return response.data;
+    // حالت دمو - بدون نیاز به بک‌اند
+    const mockUser = {
+      id: 1,
+      name: 'کاربر تست',
+      email: credentials.email,
+      role: 'admin'
+    };
+    const mockToken = 'demo-token-' + Date.now();
+    
+    localStorage.setItem('token', mockToken);
+    setUser(mockUser);
+    return { data: { token: mockToken, user: mockUser } };
   };
 
   const logout = () => {
@@ -49,11 +56,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (data) => {
-    const response = await authService.register(data);
-    const { token, user } = response.data;
-    localStorage.setItem('token', token);
-    setUser(user);
-    return response.data;
+    // حالت دمو - بدون نیاز به بک‌اند
+    const mockUser = {
+      id: 1,
+      name: data.name,
+      email: data.email,
+      role: 'admin'
+    };
+    const mockToken = 'demo-token-' + Date.now();
+    
+    localStorage.setItem('token', mockToken);
+    setUser(mockUser);
+    return { data: { token: mockToken, user: mockUser } };
   };
 
   const value = {
